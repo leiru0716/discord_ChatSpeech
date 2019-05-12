@@ -212,6 +212,6 @@ async def SiteTitle(url,sp):
 if __name__=="__main__":
     filearray=localfiles()
     try:
-        client.run("NDg4NjQ2NTY1MDI4NjkxOTg4.DoE1Hg.vnhlPByhPkkXXyh21ZS9OhYuAVY")
+        client.run("ここにBotIDを入力")
     except KeyboardInterrupt:
         client.close()

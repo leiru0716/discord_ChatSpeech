@@ -46,5 +46,3 @@ def SofTalk_add_udc(words="",reading="",fh=False):
     cmd.append("/P:"+reading+","+words+","+str(fh))
     subprocess.call(cmd)
     return '単語:'+words+'読み方:'+reading+'で追加しました'
-if __name__=='__main__':
-    filename=SofTalk_exec(W="このつぎ")

@@ -4,11 +4,10 @@ Created on Fri Sep 28 13:07:21 2018
 @author: 07160
 """
 
-
-# -*- coding: utf-8 -*-
+# coding: utf-8
 import discord
 
-import Process
+import Softalk_proc
 
 import datetime
 import os
@@ -40,11 +39,11 @@ class Sound():
             if(len(sounds)==1):
                 sounds[0].player.start()
         except discord.ConnectionClosed:
-            print('捕まえたぞ')
+            print('except:CC')
             
     def after(self):
         try:
-            print('再生終了')
+            print('end speech')
             print('path:'+self.filepath)
             if(self.sounddel):
                 os.remove(self.filepath)
@@ -52,9 +51,8 @@ class Sound():
                 sounds[1].player.start()
             del sounds[0]
         except discord.ConnectionClosed:
-            print('例外捕まえた')
-
-
+            print('except:CC')
+    
 @client.event
 async def on_ready():
     print('Logged in as')
@@ -152,9 +150,9 @@ async def on_message(message):
     elif SplitData[0]=='/word':
         res=''
         if(len(SplitData)==4):
-            res=Process.SofTalk_add_udc(words=SplitData[1],reading=SplitData[2],fh=bool(int(SplitData[3])))
+            res=Softalk_proc.SofTalk_add_udc(words=SplitData[1],reading=SplitData[2],fh=bool(int(SplitData[3])))
         elif(len(SplitData)==3):
-            res=Process.SofTalk_add_udc(words=SplitData[1],reading=SplitData[2])
+            res=Softalk_proc.SofTalk_add_udc(words=SplitData[1],reading=SplitData[2])
         await client.send_message(message.channel,res)
     
     elif SplitData[0]=='/key' and len(SplitData)>=1:
@@ -196,9 +194,9 @@ def Speech(text,read_info):
     filename=timecount+".wav"
     filepath=''
     if(read_info==''):
-        filepath=Process.SofTalk_exec(W=text,R=filename)
+        filepath=Softalk_proc.SofTalk_exec(W=text,R=filename)
     else:
-        filepath=Process.SofTalk_exec(W=text,R=filename,info=read_info)
+        filepath=Softalk_proc.SofTalk_exec(W=text,R=filename,info=read_info)
     
     return filepath
 
@@ -239,11 +237,8 @@ async def dictionaryupdate(m):
 if(__name__=='__main__'):
     client.loop=asyncio.get_event_loop()
     try:
-        client.loop.run_until_complete(client.start('NDg1NDI2NTI2NDk0NTIzNDAy.DnfPEg.usbjs_zuFIIMWHmbFnZuTAe5lL0'))
+        client.loop.run_until_complete(client.start('ここにBotIDを入力'))
     except KeyboardInterrupt:
         client.loop.run_until_complete(client.logout())
     finally:
         print("programquit")
-        client.loop.close()
-    #client.run("NDg1NDI2NTI2NDk0NTIzNDAy.DnfPEg.usbjs_zuFIIMWHmbFnZuTAe5lL0")
-    
